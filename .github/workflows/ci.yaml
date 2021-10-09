@@ -43,7 +43,7 @@ jobs:
           
       - name: "Push containerized app"
         env:
-          DOCKER_TOKEN: ${{ secrets.DOCKER_TOKEN }}
+          DOCKER_TOKEN: ${{ secrets.DEVOPS }}
           GITHUB_RUN_NUMBER: ${{ github.run_number }}
         run: |
           DOCKER_USER=raniakh
