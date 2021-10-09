@@ -8,11 +8,11 @@ jobs:
       
       - name: "Build base image"
         env:
-          DOCKER_TOKEN: ${{ secrets.DOCKER_TOKEN }}
+          DOCKER_TOKEN: ${{ secrets.DEVOPS }}
         run: |
-          DOCKER_USER=mdnfiras
+          DOCKER_USER=raniakh
           BACK_IMG_TAG=$(sha256sum package.json | cut -c1-15 )
-          RES=$(curl -u mdnfiras:$DOCKER_TOKEN https://registry.hub.docker.com/v2/repositories/$DOCKER_USER/base-back/tags | { grep $BACK_IMG_TAG || true; } )
+          RES=$(curl -u raniakh:$DOCKER_TOKEN https://registry.hub.docker.com/v2/repositories/$DOCKER_USER | { grep $BACK_IMG_TAG || true; } )
           if [ -z "$RES" ]; then
             echo "Did not find image with tag $BACK_IMG_TAG"
             docker login -u $DOCKER_USER -p $DOCKER_TOKEN
@@ -27,7 +27,7 @@ jobs:
           
       - name: "Build and containerize app"
         run: |
-          DOCKER_USER=mdnfiras
+          DOCKER_USER=raniakh
           docker pull $DOCKER_USER/base-back:latest
           docker tag $DOCKER_USER/base-back:latest base-back:latest
           docker build -t back-app .
@@ -46,7 +46,7 @@ jobs:
           DOCKER_TOKEN: ${{ secrets.DOCKER_TOKEN }}
           GITHUB_RUN_NUMBER: ${{ github.run_number }}
         run: |
-          DOCKER_USER=mdnfiras
+          DOCKER_USER=raniakh
           docker login -u $DOCKER_USER -p $DOCKER_TOKEN
           docker tag back-app $DOCKER_USER/back-app:$GITHUB_RUN_NUMBER
           docker push $DOCKER_USER/back-app:$GITHUB_RUN_NUMBER
