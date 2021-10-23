@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: back-app-service
+spec:
+  selector:
+    app: back-app
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
