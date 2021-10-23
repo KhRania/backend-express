@@ -16,6 +16,6 @@ spec:
     spec:
       containers:
       - name: back-app
-        image: raniakh/back-app
+        image: raniakh/base-back
         ports:
         - containerPort: 80
